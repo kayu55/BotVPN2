@@ -4,7 +4,7 @@
   "NAMA_STORE": "-",
   "GROUP_ID": "-",
   "PORT": "6969",
-  "PAYMENT": "-",
+  "PAYMENT": "SHOPEEPAY",
   "DATA_QRIS": "-",
   "MERCHANT_ID": "-",
   "GOPAY_KEY": "-",
