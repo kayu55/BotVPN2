@@ -3,8 +3,8 @@ const { exec } = require('child_process');
 const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('./sellvpn.db');
 
-async function renewssh(username, exp, serverId) {
-  console.log(`Renewing SSH account for ${username} with expiry ${exp} days, on server ${serverId}`);
+async function delssh(username, password, exp, serverId) {
+  console.log(`Delete SSH account for ${username} with expiry ${exp} days, and password ${password}`);
 
   // Validasi username
 if (!/^[a-z0-9-]+$/.test(username)) {
@@ -19,15 +19,13 @@ if (!/^[a-z0-9-]+$/.test(username)) {
       }
 
       const domain = server.domain;
-      const param = `/vps/renew`;
-      const web_URL = `http://${domain}${param}`; // Contoh: http://domainmu.com/vps/sshvpn
+      const param = `/vps/del`;
+      const web_URL = `http://${domain}${param}`; // Contoh: http://domainmu.com/vps/usernew
       const AUTH_TOKEN = server.auth;
-      const days = exp;
 
-      const curlCommand = `curl -sS --connect-timeout 1 --max-time 30 --fail -X PATCH "${web_URL}/${username}/${days}" \
+      const curlCommand = `curl -sS --connect-timeout 1 --max-time 30 --fail -X DELETE "${web_URL}/${username}" \
 -H "Authorization: ${AUTH_TOKEN}" \
--H "accept: application/json" \
--H "Content-Type: application/json" \
+-H "accept: application/json"`;
 
       exec(curlCommand, (err, stdout, stderr) => {
   // 1) Curl error / exit code error
@@ -80,15 +78,11 @@ if (!/^[a-z0-9-]+$/.test(username)) {
   // 7) Sukses, baru lanjut
   const s = d.data;
         console.log("⚠️ FULL DATA:", JSON.stringify(d, null, 2));
+        const msg = `✅ *Delete SSH Account Success!*
 
-        const msg = `✅ *Renew SSH Account Success!*
-
-🔄 *Akun berhasil diperpanjang*
+🔄 *Akun berhasil dihapus*
 ────────────────────────────
 👤 *Username*     : \`${s.username}\`
-📆 *Masa Aktif*   :
-🕒 Dari: \`${s.from}\`
-🕒 Sampai: \`${s.to}\`
 ────────────────────────────
 
 ✨ Terima kasih telah memperpanjang layanan kami!
@@ -99,8 +93,8 @@ if (!/^[a-z0-9-]+$/.test(username)) {
     });
   });
 }
-async function renewvmess(username, exp, serverId) {
-  console.log(`Renewing VMess account for ${username} with expiry ${exp} days`);
+async function delvmess(username, exp, quota, limitip, serverId) {
+  console.log(`Delete VMess account for ${username} with expiry ${exp} days`);
 
   // Validasi username
 if (!/^[a-z0-9-]+$/.test(username)) {
@@ -115,15 +109,13 @@ if (!/^[a-z0-9-]+$/.test(username)) {
       }
 
       const domain = server.domain;
-      const param = `/vps/renewws`;
+      const param = `/vps/delws`;
       const web_URL = `http://${domain}${param}`; // contoh: http://domain.com/vps/vmess
       const AUTH_TOKEN = server.auth;
-      const days = exp;
 
-      const curlCommand = `curl -sS --connect-timeout 1 --max-time 30 --fail -X PATCH "${web_URL}/${username}/${days}" \
+      const curlCommand = `curl -sS --connect-timeout 1 --max-time 30 --fail -X DELETE "${web_URL}/${username}" \
 -H "Authorization: ${AUTH_TOKEN}" \
--H "accept: application/json" \
--H "Content-Type: application/json" \
+-H "accept: application/json"`;
 
       exec(curlCommand, (err, stdout, stderr) => {
   // 1) Curl error / exit code error
@@ -176,15 +168,11 @@ if (!/^[a-z0-9-]+$/.test(username)) {
   // 7) Sukses, baru lanjut
   const s = d.data;
         console.log("⚠️ FULL DATA:", JSON.stringify(d, null, 2));
+        const msg = `✅ *Delete VMess Account Success!*
 
-        const msg = `✅ *Renew VMess Account Success!*
-
-🔄 *Akun berhasil diperpanjang*
+🔄 *Akun berhasil dihapus*
 ────────────────────────────
 👤 *Username*    : \`${s.username}\`
-📅 *Masa Aktif*  :
-🕒 Dari   : \`${s.from}\`
-🕒 Sampai : \`${s.to}\`
 ────────────────────────────
 
 ✨ Terima kasih telah memperpanjang layanan kami!
@@ -195,8 +183,8 @@ if (!/^[a-z0-9-]+$/.test(username)) {
     });
   });
 }
-async function renewvless(username, exp, serverId) {
-  console.log(`Renewing VLESS account for ${username} with expiry ${exp} days`);
+async function delvless(username, exp, serverId) {
+  console.log(`Delete VLESS account for ${username} with expiry ${exp} days, quota ${quota} GB, limit IP ${limitip}`);
 
   // Validasi username
 if (!/^[a-z0-9-]+$/.test(username)) {
@@ -211,15 +199,13 @@ if (!/^[a-z0-9-]+$/.test(username)) {
       }
 
       const domain = server.domain;
-      const param = `/vps/renewws`;
+      const param = `/vps/delws`;
       const web_URL = `http://${domain}${param}`;        // Contoh: http://domain.com/vps/vless
       const AUTH_TOKEN = server.auth;
-      const days = exp;
 
-      const curlCommand = `curl -sS --connect-timeout 1 --max-time 30 --fail -X PATCH "${web_URL}/${username}/${days}" \
+      const curlCommand = `curl -sS --connect-timeout 1 --max-time 30 --fail -X DELETE "${web_URL}/${username}" \
 -H "Authorization: ${AUTH_TOKEN}" \
--H "accept: application/json" \
--H "Content-Type: application/json" \
+-H "accept: application/json"`;
 
       exec(curlCommand, (err, stdout, stderr) => {
   // 1) Curl error / exit code error
@@ -272,15 +258,11 @@ if (!/^[a-z0-9-]+$/.test(username)) {
   // 7) Sukses, baru lanjut
   const s = d.data;
         console.log("⚠️ FULL DATA:", JSON.stringify(d, null, 2));
+        const msg = `✅ *Delete VLESS Account Success!*
 
-        const msg = `✅ *Renew VLESS Account Success!*
-
-🔄 *Akun berhasil diperpanjang*
+🔄 *Akun berhasil dihapus*
 ────────────────────────────
 👤 *Username*    : \`${s.username}\`
-📅 *Masa Aktif*  :
-🕒 Dari   : \`${s.from}\`
-🕒 Sampai : \`${s.to}\`
 ────────────────────────────
 
 ✨ Terima kasih telah memperpanjang layanan kami!
@@ -291,8 +273,8 @@ if (!/^[a-z0-9-]+$/.test(username)) {
     });
   });
 }
-async function renewtrojan(username, exp, serverId) {
-  console.log(`Renewing TROJAN account for ${username} with expiry ${exp} days`);
+async function deltrojan(username, exp, serverId) {
+  console.log(`Delete TROJAN account for ${username} with expiry ${exp} days, quota ${quota} GB, limit IP ${limitip}`);
 
   // Validasi username
 if (!/^[a-z0-9-]+$/.test(username)) {
@@ -307,15 +289,13 @@ if (!/^[a-z0-9-]+$/.test(username)) {
       }
 
       const domain = server.domain;
-      const param = `/vps/renewws`;
+      const param = `/vps/delws`;
       const web_URL = `http://${domain}${param}`;         // Contoh: http://domain.com/vps/trojan
       const AUTH_TOKEN = server.auth;
-      const days = exp;
 
-      const curlCommand = `curl -sS --connect-timeout 1 --max-time 30 --fail -X PATCH "${web_URL}/${username}/${days}" \
+      const curlCommand = `curl -sS --connect-timeout 1 --max-time 30 --fail -X DELETE "${web_URL}/${username}" \
 -H "Authorization: ${AUTH_TOKEN}" \
--H "accept: application/json" \
--H "Content-Type: application/json" \
+-H "accept: application/json"`;
 
       exec(curlCommand, (err, stdout, stderr) => {
   // 1) Curl error / exit code error
@@ -368,15 +348,11 @@ if (!/^[a-z0-9-]+$/.test(username)) {
   // 7) Sukses, baru lanjut
   const s = d.data;
         console.log("⚠️ FULL DATA:", JSON.stringify(d, null, 2));
+        const msg = `✅ *Delete TROJAN Account Success!*
 
-        const msg = `✅ *Renew TROJAN Account Success!*
-
-🔄 *Akun berhasil diperpanjang*
+🔄 *Akun berhasil dihapus*
 ────────────────────────────
 👤 *Username*    : \`${s.username}\`
-📅 *Masa Aktif*  :
-🕒 Dari   : \`${s.from}\`
-🕒 Sampai : \`${s.to}\`
 ────────────────────────────
 
 ✨ Terima kasih telah memperpanjang layanan kami!
@@ -388,8 +364,8 @@ if (!/^[a-z0-9-]+$/.test(username)) {
   });
 }
 //create shadowsocks ga ada di potato
-  async function renewshadowsocks(username, exp, quota, limitip, serverId) {
-    console.log(`Renewing Shadowsocks account for ${username} with expiry ${exp} days, quota ${quota} GB, limit IP ${limitip} on server ${serverId}`);
+  async function delshadowsocks(username, exp, quota, limitip, serverId) {
+    console.log(`Delete Shadowsocks account for ${username} with expiry ${exp} days, quota ${quota} GB, limit IP ${limitip} on server ${serverId}`);
     
     // Validasi username
   if (!/^[a-z0-9-]+$/.test(username)) {
@@ -443,4 +419,4 @@ if (!/^[a-z0-9-]+$/.test(username)) {
     });
   }
   
-  module.exports = { renewshadowsocks, renewtrojan, renewvless, renewvmess, renewssh };
+  module.exports = { delshadowsocks, deltrojan, delvless, delvmess, delssh };

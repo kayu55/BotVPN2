@@ -3,8 +3,8 @@ const { exec } = require('child_process');
 const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('./sellvpn.db');
 
-async function renewssh(username, exp, serverId) {
-  console.log(`Renewing SSH account for ${username} with expiry ${exp} days, on server ${serverId}`);
+async function unlockssh(username, password, exp, iplimit, serverId) {
+  console.log(`Unlock SSH account for ${username} with expiry ${exp} days, IP limit ${iplimit}, and password ${password}`);
 
   // Validasi username
 if (!/^[a-z0-9-]+$/.test(username)) {
@@ -19,15 +19,13 @@ if (!/^[a-z0-9-]+$/.test(username)) {
       }
 
       const domain = server.domain;
-      const param = `/vps/renew`;
+      const param = `/vps/unlocksshvpn`;
       const web_URL = `http://${domain}${param}`; // Contoh: http://domainmu.com/vps/sshvpn
       const AUTH_TOKEN = server.auth;
-      const days = exp;
 
-      const curlCommand = `curl -sS --connect-timeout 1 --max-time 30 --fail -X PATCH "${web_URL}/${username}/${days}" \
+      const curlCommand = `curl -sS --connect-timeout 1 --max-time 30 --fail -X PATCH "${web_URL}/${username}/pw" \
 -H "Authorization: ${AUTH_TOKEN}" \
--H "accept: application/json" \
--H "Content-Type: application/json" \
+-H "accept: application/json"`;
 
       exec(curlCommand, (err, stdout, stderr) => {
   // 1) Curl error / exit code error
@@ -80,27 +78,23 @@ if (!/^[a-z0-9-]+$/.test(username)) {
   // 7) Sukses, baru lanjut
   const s = d.data;
         console.log("⚠️ FULL DATA:", JSON.stringify(d, null, 2));
+        const msg = `✅ *Unlock SSH Account Success!*
 
-        const msg = `✅ *Renew SSH Account Success!*
-
-🔄 *Akun berhasil diperpanjang*
+🔄 *Akun berhasil dibuka*
 ────────────────────────────
 👤 *Username*     : \`${s.username}\`
-📆 *Masa Aktif*   :
-🕒 Dari: \`${s.from}\`
-🕒 Sampai: \`${s.to}\`
 ────────────────────────────
 
 ✨ Terima kasih telah memperpanjang layanan kami!
-*© Telegram Bots - 2026*`;
+*© Telegram Bots - 2025*`;
 
         return resolve(msg);
       });
     });
   });
 }
-async function renewvmess(username, exp, serverId) {
-  console.log(`Renewing VMess account for ${username} with expiry ${exp} days`);
+async function unlockvmess(username, exp, quota, limitip, serverId) {
+  console.log(`Unlock VMess account for ${username} with expiry ${exp} days, quota ${quota} GB, limit IP ${limitip}`);
 
   // Validasi username
 if (!/^[a-z0-9-]+$/.test(username)) {
@@ -115,15 +109,13 @@ if (!/^[a-z0-9-]+$/.test(username)) {
       }
 
       const domain = server.domain;
-      const param = `/vps/renewws`;
+      const param = `/vps/unlockvmess`;
       const web_URL = `http://${domain}${param}`; // contoh: http://domain.com/vps/vmess
       const AUTH_TOKEN = server.auth;
-      const days = exp;
 
-      const curlCommand = `curl -sS --connect-timeout 1 --max-time 30 --fail -X PATCH "${web_URL}/${username}/${days}" \
+      const curlCommand = `curl -sS --connect-timeout 1 --max-time 30 --fail -X PATCH "${web_URL}/${username}" \
 -H "Authorization: ${AUTH_TOKEN}" \
--H "accept: application/json" \
--H "Content-Type: application/json" \
+-H "accept: application/json"`;
 
       exec(curlCommand, (err, stdout, stderr) => {
   // 1) Curl error / exit code error
@@ -176,27 +168,23 @@ if (!/^[a-z0-9-]+$/.test(username)) {
   // 7) Sukses, baru lanjut
   const s = d.data;
         console.log("⚠️ FULL DATA:", JSON.stringify(d, null, 2));
+        const msg = `✅ *Unlock VMess Account Success!*
 
-        const msg = `✅ *Renew VMess Account Success!*
-
-🔄 *Akun berhasil diperpanjang*
+🔄 *Akun berhasil dibuka*
 ────────────────────────────
 👤 *Username*    : \`${s.username}\`
-📅 *Masa Aktif*  :
-🕒 Dari   : \`${s.from}\`
-🕒 Sampai : \`${s.to}\`
 ────────────────────────────
 
 ✨ Terima kasih telah memperpanjang layanan kami!
-*© Telegram Bots - 2026*`;
+*© Telegram Bots - 2025*`;
 
         return resolve(msg);
       });
     });
   });
 }
-async function renewvless(username, exp, serverId) {
-  console.log(`Renewing VLESS account for ${username} with expiry ${exp} days`);
+async function unlockvless(username, exp, quota, limitip, serverId) {
+  console.log(`Unlock VLESS account for ${username} with expiry ${exp} days, quota ${quota} GB, limit IP ${limitip}`);
 
   // Validasi username
 if (!/^[a-z0-9-]+$/.test(username)) {
@@ -211,15 +199,13 @@ if (!/^[a-z0-9-]+$/.test(username)) {
       }
 
       const domain = server.domain;
-      const param = `/vps/renewws`;
+      const param = `/vps/unlockvless`;
       const web_URL = `http://${domain}${param}`;        // Contoh: http://domain.com/vps/vless
       const AUTH_TOKEN = server.auth;
-      const days = exp;
 
-      const curlCommand = `curl -sS --connect-timeout 1 --max-time 30 --fail -X PATCH "${web_URL}/${username}/${days}" \
+      const curlCommand = `curl -sS --connect-timeout 1 --max-time 30 --fail -X PATCH "${web_URL}/${username}" \
 -H "Authorization: ${AUTH_TOKEN}" \
--H "accept: application/json" \
--H "Content-Type: application/json" \
+-H "accept: application/json"`;
 
       exec(curlCommand, (err, stdout, stderr) => {
   // 1) Curl error / exit code error
@@ -272,27 +258,23 @@ if (!/^[a-z0-9-]+$/.test(username)) {
   // 7) Sukses, baru lanjut
   const s = d.data;
         console.log("⚠️ FULL DATA:", JSON.stringify(d, null, 2));
+        const msg = `✅ *Unlock VLESS Account Success!*
 
-        const msg = `✅ *Renew VLESS Account Success!*
-
-🔄 *Akun berhasil diperpanjang*
+🔄 *Akun berhasil dibuka*
 ────────────────────────────
 👤 *Username*    : \`${s.username}\`
-📅 *Masa Aktif*  :
-🕒 Dari   : \`${s.from}\`
-🕒 Sampai : \`${s.to}\`
 ────────────────────────────
 
 ✨ Terima kasih telah memperpanjang layanan kami!
-*© Telegram Bots - 2026*`;
+*© Telegram Bots - 2025*`;
 
         return resolve(msg);
       });
     });
   });
 }
-async function renewtrojan(username, exp, serverId) {
-  console.log(`Renewing TROJAN account for ${username} with expiry ${exp} days`);
+async function unlocktrojan(username, exp, quota, limitip, serverId) {
+  console.log(`Unlock TROJAN account for ${username} with expiry ${exp} days, quota ${quota} GB, limit IP ${limitip}`);
 
   // Validasi username
 if (!/^[a-z0-9-]+$/.test(username)) {
@@ -307,15 +289,13 @@ if (!/^[a-z0-9-]+$/.test(username)) {
       }
 
       const domain = server.domain;
-      const param = `/vps/renewws`;
+      const param = `/vps/unlocktrojan`;
       const web_URL = `http://${domain}${param}`;         // Contoh: http://domain.com/vps/trojan
       const AUTH_TOKEN = server.auth;
-      const days = exp;
 
-      const curlCommand = `curl -sS --connect-timeout 1 --max-time 30 --fail -X PATCH "${web_URL}/${username}/${days}" \
+      const curlCommand = `curl -sS --connect-timeout 1 --max-time 30 --fail -X PATCH "${web_URL}/${username}" \
 -H "Authorization: ${AUTH_TOKEN}" \
--H "accept: application/json" \
--H "Content-Type: application/json" \
+-H "accept: application/json"`;
 
       exec(curlCommand, (err, stdout, stderr) => {
   // 1) Curl error / exit code error
@@ -368,19 +348,15 @@ if (!/^[a-z0-9-]+$/.test(username)) {
   // 7) Sukses, baru lanjut
   const s = d.data;
         console.log("⚠️ FULL DATA:", JSON.stringify(d, null, 2));
+        const msg = `✅ *Unlock TROJAN Account Success!*
 
-        const msg = `✅ *Renew TROJAN Account Success!*
-
-🔄 *Akun berhasil diperpanjang*
+🔄 *Akun berhasil dibuka*
 ────────────────────────────
 👤 *Username*    : \`${s.username}\`
-📅 *Masa Aktif*  :
-🕒 Dari   : \`${s.from}\`
-🕒 Sampai : \`${s.to}\`
 ────────────────────────────
 
 ✨ Terima kasih telah memperpanjang layanan kami!
-*© Telegram Bots - 2026*`;
+*© Telegram Bots - 2025*`;
 
         return resolve(msg);
       });
@@ -388,8 +364,8 @@ if (!/^[a-z0-9-]+$/.test(username)) {
   });
 }
 //create shadowsocks ga ada di potato
-  async function renewshadowsocks(username, exp, quota, limitip, serverId) {
-    console.log(`Renewing Shadowsocks account for ${username} with expiry ${exp} days, quota ${quota} GB, limit IP ${limitip} on server ${serverId}`);
+  async function unlockshadowsocks(username, exp, quota, limitip, serverId) {
+    console.log(`Unlock Shadowsocks account for ${username} with expiry ${exp} days, quota ${quota} GB, limit IP ${limitip} on server ${serverId}`);
     
     // Validasi username
   if (!/^[a-z0-9-]+$/.test(username)) {
@@ -443,4 +419,4 @@ if (!/^[a-z0-9-]+$/.test(username)) {
     });
   }
   
-  module.exports = { renewshadowsocks, renewtrojan, renewvless, renewvmess, renewssh };
+  module.exports = { unlockshadowsocks, unlocktrojan, unlockvless, unlockvmess, unlockssh };

@@ -2,7 +2,7 @@ const axios = require('axios');
 const { exec } = require('child_process');
 const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('./sellvpn.db');
-async function createssh(username, password, exp, iplimit, serverId) {
+async function trialssh(username, password, exp, serverId) {
   console.log(`Creating SSH account for ${username} with expiry ${exp} days, and password ${password}`);
 
   // Validasi username
@@ -18,16 +18,18 @@ if (!/^[a-z0-9-]+$/.test(username)) {
       }
 
       const domain = server.domain;
-      const param = `/vps/usernew`;
-      const web_URL = `http://${domain}${param}`; // misalnya: http://idnusastb.domain.web.id/vps/usernew
+      const param = `/vps/trialssh`;
+      const web_URL = `http://${domain}${param}`; // misalnya: http://idnusastb.domain.web.id/vps/trialssh.sh
       const AUTH_TOKEN = server.auth;
       const days = exp;
+      const KUOTA = "0"; // jika perlu di-hardcode, bisa diubah jadi parameter juga
+      const LIMIT_IP = iplimit;
 
-      const curlCommand = `curl -sS --connect-timeout 1 --max-time 30 -X POST "${web_URL}" \
+  const curlCommand = `curl -sS --connect-timeout 1 --max-time 30 -X POST "${web_URL}" \
 -H "Authorization: ${AUTH_TOKEN}" \
 -H "Content-Type: application/json" \
 -H "Accept: application/json" \
--d '{"expired":${days},"password":"${password}","username":"${username}"}'`;
+-d '{"timelimit":"3h"}'`;
 
       exec(curlCommand, (err, stdout, stderr) => {
   // 1) Curl error / exit code error
@@ -80,23 +82,6 @@ if (!/^[a-z0-9-]+$/.test(username)) {
   // 7) Sukses, baru lanjut
   const s = d.data;
         console.log("⚠️ FULL DATA:", JSON.stringify(d, null, 2));
-// ======= MULAI LOGIKA UPDATE total_create_akun =======
-if (exp >= 1 && exp <= 135) {
-  db.run(
-    'UPDATE Server SET total_create_akun = total_create_akun + 1 WHERE id = ?',
-    [serverId],
-    (err) => {
-      if (err) {
-        console.error('⚠️ Gagal update total_create_akun:', err.message);
-      } else {
-        console.log(`✅ total_create_akun diperbarui untuk serverId ${serverId} dengan exp ${exp}`);
-      }
-    }
-  );
-} else {
-  console.log(`⚠️ Exp ${exp} hari tidak dicatat (kurang dari 30 atau lebih dari 135)`);
-}
-// ======= SELESAI LOGIKA UPDATE =======
 
         const msg = `✅ *SSH Account Created Successfully!*
 
@@ -112,6 +97,10 @@ if (exp >= 1 && exp <= 135) {
 🔑 *Password*     : \`${s.password}\`
 📅 *Expiry Date*  : \`${s.exp}\`
 ⏰ *Expiry Time*  : \`${s.time}\`
+────────────────────────
+🛠 *Ports*:
+• TLS         : \`${s.port.tls}\`
+• Non-TLS     : \`${s.port.none}\`
 ────────────────────────
 🧩 *Payload WS*:
 \`
@@ -132,6 +121,7 @@ User-Agent: [ua]
 Upgrade: websocket
 \`
 
+
 📥 *Download All Config UNLOCK SSH*:
 🔗 https://rajaserver.web.id/config-Indonesia.zip
 
@@ -148,6 +138,9 @@ https://drive.google.com/file/d/1Sj37lUzkizp2-OoriCgVUC1IDRGlP1e3/view?usp=shari
 2️⃣ Ikuti panduan di dalam video
 3️⃣ Selesai & Connect 🚀  
 
+📥 *Download Config Ovpn*:
+🔗 http://${s.hostname}:81/myvpn-config.zip
+
 📥 *GRUP TESTIMOINI & BERBAGI BUG*:
 🔗 https://t.me/+7CmOTs8jaL45ZGQ1
 
@@ -159,7 +152,7 @@ https://drive.google.com/file/d/1Sj37lUzkizp2-OoriCgVUC1IDRGlP1e3/view?usp=shari
     });
   });
 }
-async function createvmess(username, exp, serverId) {
+async function trialvmess(username, exp, serverId) {
   console.log(`Creating VMess account for ${username} with expiry ${exp} days`);
 
   // Validasi username
@@ -175,16 +168,18 @@ if (!/^[a-z0-9-]+$/.test(username)) {
       }
 
       const domain = server.domain;
-      const param = `/vps/add-ws`;
+      const param = `/vps/trialvmess`;
       const web_URL = `http://${domain}${param}`; // contoh: http://idnusastb.domain.web.id/vps/vmess
       const AUTH_TOKEN = server.auth;
       const days = exp;
+      const KUOTA = quota;
+      const LIMIT_IP = limitip;
 
-      const curlCommand = `curl -sS --connect-timeout 1 --max-time 30 -X POST "${web_URL}" \
+  const curlCommand = `curl -sS --connect-timeout 1 --max-time 30 -X POST "${web_URL}" \
 -H "Authorization: ${AUTH_TOKEN}" \
 -H "Content-Type: application/json" \
 -H "Accept: application/json" \
--d '{"expired":${days},"kuota":"username":"${username}"}'`;
+-d '{"timelimit":"3h"}'`;
 
       exec(curlCommand, (err, stdout, stderr) => {
   // 1) Curl error / exit code error
@@ -237,23 +232,6 @@ if (!/^[a-z0-9-]+$/.test(username)) {
   // 7) Sukses, baru lanjut
   const s = d.data;
         console.log("⚠️ FULL DATA:", JSON.stringify(d, null, 2));
-// ======= MULAI LOGIKA UPDATE total_create_akun =======
-if (exp >= 1 && exp <= 135) {
-  db.run(
-    'UPDATE Server SET total_create_akun = total_create_akun + 1 WHERE id = ?',
-    [serverId],
-    (err) => {
-      if (err) {
-        console.error('⚠️ Gagal update total_create_akun:', err.message);
-      } else {
-        console.log(`✅ total_create_akun diperbarui untuk serverId ${serverId} dengan exp ${exp}`);
-      }
-    }
-  );
-} else {
-  console.log(`⚠️ Exp ${exp} hari tidak dicatat (kurang dari 30 atau lebih dari 135)`);
-}
-// ======= SELESAI LOGIKA UPDATE =======
 
         const msg = `✅ *VMess Account Created Successfully!*
 
@@ -264,7 +242,7 @@ if (exp >= 1 && exp <= 135) {
 🌍 *Host SSL*     : \`ssl-${s.hostname}\`
 🏢 *ISP*          : \`${s.ISP}\`
 🏙️ *City*         : \`${s.CITY}\`
-🛡 *UUID*          : \`${s.uuid}\`
+🛡 *UUID*         : \`${s.uuid}\`
 🧾 *Expired*      : \`${s.expired}\` (${s.time})
 ──────────────
 📡 *Ports*:
@@ -315,7 +293,7 @@ https://drive.google.com/file/d/1SmgoAUjTf9tt297deVkn6cd7ZOuha62a/view?usp=shari
   });
 }
 
-async function createvless(username, serverId) {
+async function trialvless(username, exp, serverId) {
   console.log(`Creating VLESS account for ${username} with expiry ${exp} days`);
 
   // Validasi username
@@ -331,16 +309,16 @@ if (!/^[a-z0-9-]+$/.test(username)) {
       }
 
       const domain = server.domain;
-      const param = `/vps/add-vless`;
+      const param = `/vps/trialvless`;
       const web_URL = `http://${domain}${param}`; // Contoh: http://domainmu.com/vps/vless
       const AUTH_TOKEN = server.auth;
       const days = exp;
 
-      const curlCommand = `curl -sS --connect-timeout 1 --max-time 30 -X POST "${web_URL}" \
+  const curlCommand = `curl -sS --connect-timeout 1 --max-time 30 -X POST "${web_URL}" \
 -H "Authorization: ${AUTH_TOKEN}" \
 -H "Content-Type: application/json" \
 -H "Accept: application/json" \
--d '{"expired":${days},"kuota":"username":"${username}"}'`;
+-d '{"timelimit":"3h"}'`;
 
       exec(curlCommand, (err, stdout, stderr) => {
   // 1) Curl error / exit code error
@@ -393,23 +371,6 @@ if (!/^[a-z0-9-]+$/.test(username)) {
   // 7) Sukses, baru lanjut
   const s = d.data;
         console.log("⚠️ FULL DATA:", JSON.stringify(d, null, 2));
-// ======= MULAI LOGIKA UPDATE total_create_akun =======
-if (exp >= 1 && exp <= 135) {
-  db.run(
-    'UPDATE Server SET total_create_akun = total_create_akun + 1 WHERE id = ?',
-    [serverId],
-    (err) => {
-      if (err) {
-        console.error('⚠️ Gagal update total_create_akun:', err.message);
-      } else {
-        console.log(`✅ total_create_akun diperbarui untuk serverId ${serverId} dengan exp ${exp}`);
-      }
-    }
-  );
-} else {
-  console.log(`⚠️ Exp ${exp} hari tidak dicatat (kurang dari 30 atau lebih dari 135)`);
-}
-// ======= SELESAI LOGIKA UPDATE =======
 
         const msg = `✅ *VLESS Account Created Successfully!*
 
@@ -469,8 +430,8 @@ https://drive.google.com/file/d/1SmgoAUjTf9tt297deVkn6cd7ZOuha62a/view?usp=shari
     });
   });
 }
-async function createtrojan(username, serverId) {
-  console.log(`Creating Trojan account for ${username} with expiry ${exp} days, quota ${quota} GB, limit IP ${limitip}`);
+async function trialtrojan(username, exp, serverId) {
+  console.log(`Creating Trojan account for ${username} with expiry ${exp} days`);
 
   // Validasi username
 if (!/^[a-z0-9-]+$/.test(username)) {
@@ -485,16 +446,18 @@ if (!/^[a-z0-9-]+$/.test(username)) {
       }
 
       const domain = server.domain;
-      const param = `/vps/add-tr`;
+      const param = `/vps/trialtrojan`;
       const web_URL = `http://${domain}${param}`; // contoh: http://domainmu.com/vps/trojan
       const AUTH_TOKEN = server.auth;
       const days = exp;
-      
-      const curlCommand = `curl -sS --connect-timeout 1 --max-time 30 -X POST "${web_URL}" \
+      const KUOTA = quota;
+      const LIMIT_IP = limitip;
+
+  const curlCommand = `curl -sS --connect-timeout 1 --max-time 30 -X POST "${web_URL}" \
 -H "Authorization: ${AUTH_TOKEN}" \
 -H "Content-Type: application/json" \
 -H "Accept: application/json" \
--d '{"expired":${days},"username":"${username}"}'`;
+-d '{"timelimit":"3h"}'`;
 
       exec(curlCommand, (err, stdout, stderr) => {
   // 1) Curl error / exit code error
@@ -547,23 +510,6 @@ if (!/^[a-z0-9-]+$/.test(username)) {
   // 7) Sukses, baru lanjut
   const s = d.data;
         console.log("⚠️ FULL DATA:", JSON.stringify(d, null, 2));
-// ======= MULAI LOGIKA UPDATE total_create_akun =======
-if (exp >= 1 && exp <= 135) {
-  db.run(
-    'UPDATE Server SET total_create_akun = total_create_akun + 1 WHERE id = ?',
-    [serverId],
-    (err) => {
-      if (err) {
-        console.error('⚠️ Gagal update total_create_akun:', err.message);
-      } else {
-        console.log(`✅ total_create_akun diperbarui untuk serverId ${serverId} dengan exp ${exp}`);
-      }
-    }
-  );
-} else {
-  console.log(`⚠️ Exp ${exp} hari tidak dicatat (kurang dari 30 atau lebih dari 135)`);
-}
-// ======= SELESAI LOGIKA UPDATE =======
 
         const msg = `✅ *Trojan Account Created Successfully!*
 
@@ -622,7 +568,7 @@ https://drive.google.com/file/d/1SmgoAUjTf9tt297deVkn6cd7ZOuha62a/view?usp=shari
 
 
 //create shadowsocks ga ada di potato
-async function createshadowsocks(username, exp, quota, limitip, serverId) {
+async function trialshadowsocks(username, exp, quota, limitip, serverId) {
   console.log(`Creating Shadowsocks account for ${username} with expiry ${exp} days, quota ${quota} GB, limit IP ${limitip} on server ${serverId}`);
   
   // Validasi username
@@ -699,7 +645,7 @@ Save Account Link: [Save Account](https://${shadowsocksData.domain}:81/shadowsoc
   });
 }
 
-module.exports = { createssh, createvmess, createvless, createtrojan, createshadowsocks }; 
+module.exports = { trialssh, trialvmess, trialvless, trialtrojan, trialshadowsocks }; 
 
 
 
