@@ -59,6 +59,9 @@ async function trialssh(username, password, exp, iplimit, serverId) {
 
 ┌〔 🌍 *ꜱᴇʀᴠᴇʀ* 〕
 ├ 🌐 ᴅᴏᴍᴀɪɴ      : \`${sshData.domain}\`
+├ ☁️ ᴄʟᴏᴜᴅꜰʀᴏɴᴛ  : \`${cloudfront}\`
+├ 🌍 ɴᴀᴍᴇꜱᴇʀᴠᴇʀ  : \`${sshData.ns_domain}\`
+└ 🔑 ᴘᴜʙ ᴋᴇʏ     : \`${sshData.pubkey}\`
 
 ━━━━━━━━━━━━━━━━━━━━━━
 
@@ -66,8 +69,10 @@ async function trialssh(username, password, exp, iplimit, serverId) {
 ├ 🔐 ᴛʟꜱ        : \`443,8443\`
 ├ 🌐 ʜᴛᴛᴘ       : \`80,8080,2086,8880\`
 ├ ⚡ ᴏᴘᴇɴꜱꜱʜ    : \`22\`
-├ 📡 ᴅʀᴏᴘʙᴇᴀʀ   : \`109,143\`
-└ 🎮 ʙᴀᴅᴠᴘɴ      : \`7100-7300\`
+├ 🚀 ᴜᴅᴘꜱꜱʜ      : \`1-65535\`
+├ 🌍 ᴅɴꜱ        : \`53,2222\`
+├ 📡 ᴅʀᴏᴘʙᴇᴀʀ   : \`109,110\`
+└ 🎮 ʙᴀᴅᴠᴘɴ      : \`7300\`
 
 ━━━━━━━━━━━━━━━━━━━━━━
 
@@ -83,7 +88,9 @@ async function trialssh(username, password, exp, iplimit, serverId) {
 
 ━━━━━━━━━━━━━━━━━━━━━━
 
-💥 ᵁᴾᴸᴼᴬᴰ ᴮʸ ᴬᴿʸᴬ ᴮᴸᴵᵀᴬᴿ
+💾 *ꜱᴀᴠᴇ ᴀᴄᴄᴏᴜɴᴛ*
+
+https://${sshData.domain}:81/ssh-${sshData.username}.txt
 
 ━━━━━━━━━━━━━━━━━━━━━━
 
@@ -174,6 +181,7 @@ async function trialvmess(username, exp, quota, limitip, serverId) {
 
 ┌〔 🌍 *ꜱᴇʀᴠᴇʀ* 〕
 ├ 🌐 ᴅᴏᴍᴀɪɴ      : \`${vmessData.domain}\`
+├ ☁️ ᴄʟᴏᴜᴅꜰʀᴏɴᴛ  : \`${cloudfront}\`
 ├ 🔐 ᴛʟꜱ ᴘᴏʀᴛ    : \`443,8443\`
 ├ 🌍 ʜᴛᴛᴘ ᴘᴏʀᴛ   : \`80,8080,2086,8880\`
 ├ 🔒 ꜱᴇᴄᴜʀɪᴛʏ    : \`Auto\`
@@ -206,7 +214,9 @@ ${vmessData.vmess_grpc_link}
 
 ━━━━━━━━━━━━━━━━━━━━━━
 
-💥 ᵁᴾᴸᴼᴬᴰ ᴮʸ ᴬᴿʸᴬ ᴮᴸᴵᵀᴬᴿ
+💾 *ꜱᴀᴠᴇ ᴀᴄᴄᴏᴜɴᴛ*
+
+https://${vmessData.domain}:81/vmess-${vmessData.username}.txt
 
 ━━━━━━━━━━━━━━━━━━━━━━
 
@@ -594,6 +604,9 @@ async function createssh(username, password, exp, iplimit, serverId) {
 
 ┌〔 🌍 *ꜱᴇʀᴠᴇʀ* 〕
 ├ 🌐 ᴅᴏᴍᴀɪɴ      : \`${sshData.domain}\`
+├ ☁️ ᴄʟᴏᴜᴅꜰʀᴏɴᴛ  : \`${cloudfront}\`
+├ 🌍 ɴᴀᴍᴇꜱᴇʀᴠᴇʀ  : \`${sshData.ns_domain}\`
+└ 🔑 ᴘᴜʙ ᴋᴇʏ     : \`${sshData.pubkey}\`
 
 ━━━━━━━━━━━━━━━━━━━━━━
 
@@ -601,8 +614,10 @@ async function createssh(username, password, exp, iplimit, serverId) {
 ├ 🔐 ᴛʟꜱ        : \`443,8443\`
 ├ 🌐 ʜᴛᴛᴘ       : \`80,8080,2086,8880\`
 ├ ⚡ ᴏᴘᴇɴꜱꜱʜ    : \`22\`
-├ 📡 ᴅʀᴏᴘʙᴇᴀʀ   : \`109,143\`
-└ 🎮 ʙᴀᴅᴠᴘɴ      : \`7100-7300\`
+├ 🚀 ᴜᴅᴘꜱꜱʜ      : \`1-65535\`
+├ 🌍 ᴅɴꜱ        : \`53,2222\`
+├ 📡 ᴅʀᴏᴘʙᴇᴀʀ   : \`109,110\`
+└ 🎮 ʙᴀᴅᴠᴘɴ      : \`7300\`
 
 ━━━━━━━━━━━━━━━━━━━━━━
 
@@ -618,7 +633,9 @@ async function createssh(username, password, exp, iplimit, serverId) {
 
 ━━━━━━━━━━━━━━━━━━━━━━
 
-💥 ᵁᴾᴸᴼᴬᴰ ᴮʸ ᴬᴿʸᴬ ᴮᴸᴵᵀᴬᴿ
+💾 *ꜱᴀᴠᴇ ᴀᴄᴄᴏᴜɴᴛ*
+
+https://${sshData.domain}:81/ssh-${sshData.username}.txt
 
 ━━━━━━━━━━━━━━━━━━━━━━
 
@@ -684,6 +701,7 @@ async function createvmess(username, exp, quota, limitip, serverId) {
 
 ┌〔 🌍 *ꜱᴇʀᴠᴇʀ* 〕
 ├ 🌐 ᴅᴏᴍᴀɪɴ      : \`${vmessData.domain}\`
+├ ☁️ ᴄʟᴏᴜᴅꜰʀᴏɴᴛ  : \`${cloudfront}\`
 ├ 🔐 ᴛʟꜱ ᴘᴏʀᴛ    : \`443,8443\`
 ├ 🌍 ʜᴛᴛᴘ ᴘᴏʀᴛ   : \`80,8080,2086,8880\`
 ├ 🔒 ꜱᴇᴄᴜʀɪᴛʏ    : \`Auto\`
@@ -716,7 +734,9 @@ ${vmessData.vmess_grpc_link}
 
 ━━━━━━━━━━━━━━━━━━━━━━
 
-💥 ᵁᴾᴸᴼᴬᴰ ᴮʸ ᴬᴿʸᴬ ᴮᴸᴵᵀᴬᴿ
+💾 *ꜱᴀᴠᴇ ᴀᴄᴄᴏᴜɴᴛ*
+
+https://${vmessData.domain}:81/vmess-${vmessData.username}.txt
 
 ━━━━━━━━━━━━━━━━━━━━━━
 
