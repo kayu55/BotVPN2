@@ -79,7 +79,7 @@ async function trialssh(username, password, exp, iplimit, serverId) {
 
 📄 *ᴘᴀʏʟᴏᴀᴅ*
 
-\`GET /cdn-cgi/trace HTTP/1.1[crlf]Host: Bug_Kalian[crlf][crlf]GET-RAY / HTTP/1.1[crlf]Host: [host][crlf]Connection: Upgrade[crlf]User-Agent: [ua][crlf]Upgrade: websocket[crlf][crlf]\`
+\`GET / HTTP/1.1[crlf]Host: [host_port][crlf]Upgrade: Websocket[crlf]Connection: Keep-Alive[crlf][crlf]\`
 
 ━━━━━━━━━━━━━━━━━━━━━━
 
@@ -614,7 +614,7 @@ async function createssh(username, password, exp, iplimit, serverId) {
 
 📄 *ᴘᴀʏʟᴏᴀᴅ*
 
-\`GET /cdn-cgi/trace HTTP/1.1[crlf]Host: Bug_Kalian[crlf][crlf]GET-RAY / HTTP/1.1[crlf]Host: [host][crlf]Connection: Upgrade[crlf]User-Agent: [ua][crlf]Upgrade: websocket[crlf][crlf]\`
+\`GET / HTTP/1.1[crlf]Host: [host_port][crlf]Upgrade: Websocket[crlf]Connection: Keep-Alive[crlf][crlf]\`
 
 ━━━━━━━━━━━━━━━━━━━━━━
 
