@@ -287,9 +287,8 @@ async function trialvless(username, exp, quota, limitip, serverId) {
 
 ┌〔 🌍 *ꜱᴇʀᴠᴇʀ* 〕
 ├ 🌐 ᴅᴏᴍᴀɪɴ      : \`${vlessData.domain}\`
-├ ☁️ ᴄʟᴏᴜᴅꜰʀᴏɴᴛ  : \`${cloudfront}\`
-├ 🔐 ᴛʟꜱ ᴘᴏʀᴛ    : \`443,8443\`
-├ 🌍 ʜᴛᴛᴘ ᴘᴏʀᴛ   : \`80,8080,2086,8880\`
+├ 🔐 ᴛʟꜱ ᴘᴏʀᴛ    : \`443,8443,2087,2096,2053,2083\`
+├ 🌍 ʜᴛᴛᴘ ᴘᴏʀᴛ   : \`8080,8880,2082,2086,2052,2095\`
 ├ 📂 ᴘᴀᴛʜ        : \`/vless\`
 └ 🚀 ɢʀᴘᴄ ᴘᴀᴛʜ   : \`vless-grpc\`
 
@@ -319,9 +318,7 @@ ${vlessData.vless_grpc_link}
 
 ━━━━━━━━━━━━━━━━━━━━━━
 
-💾 *ꜱᴀᴠᴇ ᴀᴄᴄᴏᴜɴᴛ*
-
-https://${vlessData.domain}:81/vless-${vlessData.username}.txt
+💥 ᵁᴾᴸᴼᴬᴰ ᴮʸ ᴬᴿʸᴬ ᴮᴸᴵᵀᴬᴿ
 
 ━━━━━━━━━━━━━━━━━━━━━━
 
@@ -395,9 +392,8 @@ async function trialtrojan(username, exp, quota, limitip, serverId) {
 
 ┌〔 🌍 *ꜱᴇʀᴠᴇʀ* 〕
 ├ 🌐 ᴅᴏᴍᴀɪɴ      : \`${trojanData.domain}\`
-├ ☁️ ᴄʟᴏᴜᴅꜰʀᴏɴᴛ  : \`${cloudfront}\`
-├ 🔐 ᴛʟꜱ ᴘᴏʀᴛ    : \`443,8443\`
-├ 🌍 ʜᴛᴛᴘ ᴘᴏʀᴛ   : \`80,8080,2086,8880\`
+├ 🔐 ᴛʟꜱ ᴘᴏʀᴛ    : \`443,8443,2087,2096,2053,2083\`
+├ 🌍 ʜᴛᴛᴘ ᴘᴏʀᴛ   : \`8080,8880,2082,2086,2052,2095\`
 ├ 📂 ᴘᴀᴛʜ        : \`/trojan-ws\`
 └ 🚀 ɢʀᴘᴄ ᴘᴀᴛʜ   : \`trojan-grpc\`
 
@@ -419,9 +415,7 @@ ${trojanData.trojan_grpc_link}
 
 ━━━━━━━━━━━━━━━━━━━━━━
 
-💾 *ꜱᴀᴠᴇ ᴀᴄᴄᴏᴜɴᴛ*
-
-https://${trojanData.domain}:81/trojan-${trojanData.username}.txt
+💥 ᵁᴾᴸᴼᴬᴰ ᴮʸ ᴬᴿʸᴬ ᴮᴸᴵᵀᴬᴿ
 
 ━━━━━━━━━━━━━━━━━━━━━━
 
@@ -795,9 +789,8 @@ async function createvless(username, exp, quota, limitip, serverId) {
 
 ┌〔 🌍 *ꜱᴇʀᴠᴇʀ* 〕
 ├ 🌐 ᴅᴏᴍᴀɪɴ      : \`${vlessData.domain}\`
-├ ☁️ ᴄʟᴏᴜᴅꜰʀᴏɴᴛ  : \`${cloudfront}\`
-├ 🔐 ᴛʟꜱ ᴘᴏʀᴛ    : \`443,8443\`
-├ 🌍 ʜᴛᴛᴘ ᴘᴏʀᴛ   : \`80,8080,2086,8880\`
+├ 🔐 ᴛʟꜱ ᴘᴏʀᴛ    : \`443,8443,2087,2096,2053,2083\`
+├ 🌍 ʜᴛᴛᴘ ᴘᴏʀᴛ   : \`8080,8880,2082,2086,2052,2095\`
 ├ 📂 ᴘᴀᴛʜ        : \`/vless\`
 └ 🚀 ɢʀᴘᴄ ᴘᴀᴛʜ   : \`vless-grpc\`
 
@@ -827,9 +820,7 @@ ${vlessData.vless_grpc_link}
 
 ━━━━━━━━━━━━━━━━━━━━━━
 
-💾 *ꜱᴀᴠᴇ ᴀᴄᴄᴏᴜɴᴛ*
-
-https://${vlessData.domain}:81/vless-${vlessData.username}.txt
+💥 ᵁᴾᴸᴼᴬᴰ ᴮʸ ᴬᴿʸᴬ ᴮᴸᴵᵀᴬᴿ
 
 ━━━━━━━━━━━━━━━━━━━━━━
 
@@ -902,9 +893,8 @@ async function createtrojan(username, exp, quota, limitip, serverId) {
 
 ┌〔 🌍 *ꜱᴇʀᴠᴇʀ* 〕
 ├ 🌐 ᴅᴏᴍᴀɪɴ      : \`${trojanData.domain}\`
-├ ☁️ ᴄʟᴏᴜᴅꜰʀᴏɴᴛ  : \`${cloudfront}\`
-├ 🔐 ᴛʟꜱ ᴘᴏʀᴛ    : \`443,8443\`
-├ 🌍 ʜᴛᴛᴘ ᴘᴏʀᴛ   : \`80,8080,2086,8880\`
+├ 🔐 ᴛʟꜱ ᴘᴏʀᴛ    : \`443,8443,2087,2096,2053,2083\`
+├ 🌍 ʜᴛᴛᴘ ᴘᴏʀᴛ   : \`8080,8880,2082,2086,2052,2095\`
 ├ 📂 ᴘᴀᴛʜ        : \`/trojan-ws\`
 └ 🚀 ɢʀᴘᴄ ᴘᴀᴛʜ   : \`trojan-grpc\`
 
@@ -926,9 +916,7 @@ ${trojanData.trojan_grpc_link}
 
 ━━━━━━━━━━━━━━━━━━━━━━
 
-💾 *ꜱᴀᴠᴇ ᴀᴄᴄᴏᴜɴᴛ*
-
-https://${trojanData.domain}:81/trojan-${trojanData.username}.txt
+💥 ᵁᴾᴸᴼᴬᴰ ᴮʸ ᴬᴿʸᴬ ᴮᴸᴵᵀᴬᴿ
 
 ━━━━━━━━━━━━━━━━━━━━━━
 
